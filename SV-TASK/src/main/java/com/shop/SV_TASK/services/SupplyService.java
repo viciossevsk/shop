@@ -1,12 +1,15 @@
 package com.shop.SV_TASK.services;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Service;
+import com.shop.SV_TASK.dto.SupplyDto;
 
-@Service
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class SupplyService {
+import java.util.List;
+
+public interface SupplyService {
+    SupplyDto createSupply(SupplyDto supplyDto);
+
+    List<SupplyDto> getAllSupplies();
+
+    SupplyDto getSupplyById(Long supplyId);
+
+    void deleteSupplyById(Long supplyId);
 }

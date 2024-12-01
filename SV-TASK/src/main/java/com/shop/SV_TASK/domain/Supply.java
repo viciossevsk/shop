@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
@@ -19,11 +20,14 @@ public class Supply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    Integer supply_number;
+    int num;
 
-    LocalDate supply_date;
+    LocalDateTime supply_dateTime;
 
     float weight;
 
+    @ManyToOne
+    @JoinColumn(name = "productPrice_id")
+    ProductPrice productPrice;
 
 }

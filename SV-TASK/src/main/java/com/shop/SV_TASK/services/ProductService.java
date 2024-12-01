@@ -1,12 +1,15 @@
 package com.shop.SV_TASK.services;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Service;
+import com.shop.SV_TASK.dto.ProductDto;
 
-@Service
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ProductService {
+import java.util.List;
+
+public interface ProductService {
+    ProductDto createProduct(ProductDto productDto);
+
+    List<ProductDto> getAllProducts();
+
+    ProductDto getProductById(Long productId);
+
+    void deleteProductById(Long productId);
 }
