@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class SupplierServiceImpl implements SupplierService {
     SupplierMapper supplierMapper;
 
     @Override
+    @Transactional
     public SupplierDto createSupplier(SupplierDto supplierDto) {
         validate(supplierDto);
         Supplier supplier = supplierMapper.toSupplier(supplierDto);
@@ -32,17 +34,20 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<SupplierDto> getAllSuppliers() {
         return supplierRepository.findAll().stream().map(supplierMapper::toSupplierDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public SupplierDto getSupplierById(Long supplierId) {
         return supplierMapper.toSupplierDto(supplierRepository.findById(supplierId)
                                                     .orElseThrow(() -> new EntityNotFoundException(String.format(MISTAKEN_SUPPLIER_ID, supplierId))));
     }
 
     @Override
+    @Transactional
     public void deleteSupplierById(Long supplierId) {
         supplierRepository.deleteById(supplierId);
     }

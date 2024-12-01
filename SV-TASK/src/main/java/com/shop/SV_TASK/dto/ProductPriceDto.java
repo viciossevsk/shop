@@ -3,6 +3,7 @@ package com.shop.SV_TASK.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.shop.SV_TASK.domain.Product;
 import com.shop.SV_TASK.domain.Supplier;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -19,6 +20,12 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductPriceDto {
     Long id;
+    @NotNull
+    //(groups = ProductController.class)
+    private Long productId;
+    @NotNull
+    //(groups = SupplierController.class)
+    private Long SupplierId;
     @Positive(message = "Value must be Long and positive")
     private Long price;
     @DateTimeFormat(pattern = "YYYY-MM-DD")

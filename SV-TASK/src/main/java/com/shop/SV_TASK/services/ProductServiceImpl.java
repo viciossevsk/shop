@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     ProductMapper productMapper;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public ProductDto createProduct(ProductDto productDto) {
         validate(productDto);
         Product product = productMapper.toProduct(productDto);
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteProductById(Long productId) {
         productRepository.deleteById(productId);
     }

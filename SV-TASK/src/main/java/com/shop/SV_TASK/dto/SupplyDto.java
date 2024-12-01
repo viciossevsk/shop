@@ -2,6 +2,7 @@ package com.shop.SV_TASK.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -17,6 +18,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SupplyDto {
     Long id;
+    @NotNull
+            //(groups = ProductPriceController.class)
+    private Long productPriceId;
     @Size(max = 5)
     @NotBlank(message = "Supply number must be specified")
     @Positive(message = "Value must be positive")

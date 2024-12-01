@@ -10,12 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface SupplyRepository extends JpaRepository<Supply, Long> {
-    Optional<Supply> findSupplyBySnum(Integer snum);
 
-//    @Query(
-//            "select new ru.practicum.shareit.item.dto.CommentDto(c.id, c.text, c.authorName, c.created, c.item.id)" +
-//                    " from Comment as c" +
-//                    " where c.id = ?1"
-//    )
-//    SupplyDto findSupplyDtoByNumber(Long id);
+    Optional<Supply> findSupplyByNum(int num);
 }
