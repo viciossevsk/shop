@@ -1,4 +1,4 @@
-package com.shop.SV_TASK.mappers;
+package com.shop.SV_TASK.mapper;
 
 import com.shop.SV_TASK.domain.Supplier;
 import com.shop.SV_TASK.dto.SupplierDto;

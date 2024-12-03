@@ -1,12 +1,11 @@
-package com.shop.SV_TASK.services;
+package com.shop.SV_TASK.service;
 
-import com.shop.SV_TASK.domain.Supply;
+import com.shop.SV_TASK.domain.ProductPrice;
 import com.shop.SV_TASK.dto.ProductPriceDto;
-import com.shop.SV_TASK.dto.SupplyDto;
-import com.shop.SV_TASK.exceptions.EntityNotFoundException;
-import com.shop.SV_TASK.exceptions.ValidationException;
-import com.shop.SV_TASK.mappers.ProductPriceMapper;
-import com.shop.SV_TASK.repositories.ProductPriceRepository;
+import com.shop.SV_TASK.exception.EntityNotFoundException;
+import com.shop.SV_TASK.exception.ValidationException;
+import com.shop.SV_TASK.mapper.ProductPriceMapper;
+import com.shop.SV_TASK.repository.ProductPriceRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,7 +29,9 @@ public class ProductPriceServiceImpl implements ProductPriceService{
     @Override
     @Transactional
     public ProductPriceDto createProductPrice(ProductPriceDto productPriceDto) {
-        return null;
+        validate(productPriceDto);
+        ProductPrice productPrice = productPriceMapper.toProductPrice(productPriceDto);
+        return productPriceMapper.toProductPriceDto(productPriceRepository.save(productPrice));
     }
 
     @Override
@@ -49,17 +50,22 @@ public class ProductPriceServiceImpl implements ProductPriceService{
     @Override
     @Transactional
     public void deleteProductPriceById(Long productPriceId) {
-
+        productPriceRepository.deleteById(productPriceId);
     }
 
     private void validate(ProductPriceDto productPriceDto) {
-        int num = supplyDto.getNum();
-        Optional<Supply> supply = supplyRepository.findSupplyByNum(num);
-        if (supply.isPresent()) {
-            throw new ValidationException(String.format(MISTAKEN_VALID_SUPPLY_NUM, num));
+       Optional<ProductPrice> productPrice = productPriceRepository.findDoubleProductPrice(
+               productPriceDto.getProductId(),
+               productPriceDto.getSupplierId(),
+               productPriceDto.getPrice(),
+               productPriceDto.getPeriod_from(),
+               productPriceDto.getPeriod_to()
+       );
+
+        if (productPrice.isPresent()) {
+            throw new ValidationException("Product price with these parameters already exists");
         }
-        if (!productPriceRepository.existsById(supplyDto.getProductPriceId())) {
-            throw new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyDto.getProductPriceId()));
-        }
+
+
     }
 }

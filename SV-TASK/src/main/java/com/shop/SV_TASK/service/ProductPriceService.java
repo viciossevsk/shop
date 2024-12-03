@@ -1,4 +1,4 @@
-package com.shop.SV_TASK.services;
+package com.shop.SV_TASK.service;
 
 import com.shop.SV_TASK.dto.ProductPriceDto;
 

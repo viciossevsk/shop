@@ -1,13 +1,13 @@
-package com.shop.SV_TASK.services;
+package com.shop.SV_TASK.service;
 
 import com.shop.SV_TASK.domain.ProductPrice;
 import com.shop.SV_TASK.domain.Supply;
 import com.shop.SV_TASK.dto.SupplyDto;
-import com.shop.SV_TASK.exceptions.EntityNotFoundException;
-import com.shop.SV_TASK.exceptions.ValidationException;
-import com.shop.SV_TASK.mappers.SupplyMapper;
-import com.shop.SV_TASK.repositories.ProductPriceRepository;
-import com.shop.SV_TASK.repositories.SupplyRepository;
+import com.shop.SV_TASK.exception.EntityNotFoundException;
+import com.shop.SV_TASK.exception.ValidationException;
+import com.shop.SV_TASK.mapper.SupplyMapper;
+import com.shop.SV_TASK.repository.ProductPriceRepository;
+import com.shop.SV_TASK.repository.SupplyRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
