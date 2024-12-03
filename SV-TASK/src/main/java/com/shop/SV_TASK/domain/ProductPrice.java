@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -19,16 +21,15 @@ public class ProductPrice {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
-    String name;
-
     float price;
-
     LocalDate period_from;
-
     LocalDate period_to;
-
     @ManyToOne
     @JoinColumn(name = "product_id")
     Product product;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id")
+    Supplier supplier;
+    @OneToMany
+    List<Supply> supplies = new ArrayList<>();
 }

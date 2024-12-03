@@ -23,12 +23,6 @@ public class Product {
 
     String name;
 
-    float price;
-
-    LocalDate period_from;
-
-    LocalDate period_to;
-
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     Supplier supplier;
