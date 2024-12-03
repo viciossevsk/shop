@@ -23,7 +23,6 @@ public class ProductController {
 
 @PostMapping
 public ProductDto createProduct(@Valid @RequestBody ProductDto productDto){
-    log.info("controller");
     return productService.createProduct(productDto);
 }
 
@@ -32,5 +31,13 @@ public ProductDto createProduct(@Valid @RequestBody ProductDto productDto){
     return  productService.getAllProducts();
 }
 
+    @GetMapping("/{id}")
+    ProductDto getProductById(@Valid @PathVariable("id") Long id) {
+    return  productService.getProductById(id);
+    }
 
+    @DeleteMapping("/{id}")
+    public void deleteProductById(@Valid @PathVariable("id") Long id){
+        productService.deleteProductById(id);
+}
 }
