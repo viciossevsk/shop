@@ -22,6 +22,7 @@ public class ProductPrice {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(name = "price", nullable = false)
     float price;
     @Column(name = "period_from", nullable = false)
     LocalDate period_from;

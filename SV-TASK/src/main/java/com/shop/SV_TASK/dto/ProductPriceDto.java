@@ -1,8 +1,5 @@
 package com.shop.SV_TASK.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.shop.SV_TASK.domain.Product;
-import com.shop.SV_TASK.domain.Supplier;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -27,7 +24,8 @@ public class ProductPriceDto {
     //(groups = SupplierController.class)
     Long supplierId;
     @Positive(message = "Value must be Long and positive")
-    Long price;
+    @NotNull
+    float price;
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     LocalDate period_from;
     @DateTimeFormat(pattern = "YYYY-MM-DD")
