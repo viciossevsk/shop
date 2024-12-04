@@ -56,5 +56,12 @@ public class SupplierServiceImpl implements SupplierService {
         if ((supplierDto.getName() == null) || (supplierDto.getName().isEmpty())) {
             throw new ValidationException("Supplier name invalid");
         }
+
+        List<Supplier> suppliers = supplierRepository.findAllByName(supplierDto.getName());
+
+        if (!suppliers.isEmpty()) {
+            throw new ValidationException("Supplier with these name already exists");
+
+        }
     }
 }

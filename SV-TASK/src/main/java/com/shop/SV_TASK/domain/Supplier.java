@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "SUPPLIERS")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Supplier {

@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "PRODUCTS")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
 

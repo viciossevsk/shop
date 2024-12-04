@@ -9,6 +9,7 @@ import com.shop.SV_TASK.repository.ProductPriceRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.*;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductPriceServiceImpl implements ProductPriceService{
 
@@ -29,8 +31,10 @@ public class ProductPriceServiceImpl implements ProductPriceService{
     @Override
     @Transactional
     public ProductPriceDto createProductPrice(ProductPriceDto productPriceDto) {
-        validate(productPriceDto);
+      //  validate(productPriceDto);
         ProductPrice productPrice = productPriceMapper.toProductPrice(productPriceDto);
+        log.info(stringToGreenColor(productPriceDto.toString()));
+        log.info(stringToGreenColor(productPrice.toString()));
         return productPriceMapper.toProductPriceDto(productPriceRepository.save(productPrice));
     }
 

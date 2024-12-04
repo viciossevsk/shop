@@ -22,12 +22,12 @@ public class ProductPriceDto {
     Long id;
     @NotNull
     //(groups = ProductController.class)
-    private Long productId;
+    Long productId;
     @NotNull
     //(groups = SupplierController.class)
-    private Long SupplierId;
+    Long supplierId;
     @Positive(message = "Value must be Long and positive")
-    private Long price;
+    Long price;
     @DateTimeFormat(pattern = "YYYY-MM-DD")
     LocalDate period_from;
     @DateTimeFormat(pattern = "YYYY-MM-DD")

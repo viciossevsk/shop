@@ -12,7 +12,8 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(indexes = @Index(name = "product_price_index", columnList = "id, period_from, period_to", unique = true))
+@ToString
+@Table(name = "PRODUCTPRICES", indexes = @Index(name = "product_price_index", columnList = "id, period_from, period_to", unique = true))
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductPrice {
@@ -22,12 +23,14 @@ public class ProductPrice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     float price;
+    @Column(name = "period_from", nullable = false)
     LocalDate period_from;
+    @Column(name = "period_to", nullable = false)
     LocalDate period_to;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
     Product product;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "supplier_id")
     Supplier supplier;
     @OneToMany
