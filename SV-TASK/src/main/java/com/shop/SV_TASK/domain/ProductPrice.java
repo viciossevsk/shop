@@ -28,10 +28,10 @@ public class ProductPrice {
     @Column(name = "period_to", nullable = false)
     LocalDate period_to;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     Product product;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     Supplier supplier;
     @OneToMany
     List<Supply> supplies = new ArrayList<>();

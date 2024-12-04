@@ -28,7 +28,7 @@ public class Supply {
     float weight;
 
     @ManyToOne
-    @JoinColumn(name = "productPrice_id")
+    @JoinColumn(name = "productPrice_id", referencedColumnName = "id")
     ProductPrice productPrice;
 
 }
