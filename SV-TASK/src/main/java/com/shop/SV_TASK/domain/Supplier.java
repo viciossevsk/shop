@@ -22,6 +22,7 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "name", nullable = false)
     String name;
 
     @OneToMany

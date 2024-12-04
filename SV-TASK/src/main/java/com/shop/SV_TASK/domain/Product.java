@@ -22,11 +22,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "name", nullable = false)
     String name;
-
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
-    Supplier supplier;
 
     @OneToMany
     Set<ProductPrice> productPrices = new HashSet<>();
