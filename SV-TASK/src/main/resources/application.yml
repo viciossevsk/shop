@@ -1,11 +1,17 @@
 #vaadin.launch-browser=true
 #spring.application.name=SV-TASK
+log4j:
+  logger:
+    org:
+      hibernate:
+        type: TRACE
 
 logging:
   level:
     org:
       hibernate:
         SQL: TRACE
+        type: TRACE
 
       springframework:
         orm:
@@ -47,3 +53,4 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true

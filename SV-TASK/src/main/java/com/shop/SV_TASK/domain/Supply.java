@@ -27,8 +27,8 @@ public class Supply {
 
     float weight;
 
-    @ManyToOne
-    @JoinColumn(name = "productPrice_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productprice_id", referencedColumnName = "id")
     ProductPrice productPrice;
 
 }

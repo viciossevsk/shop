@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "name", nullable = false)
     String name;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Set<ProductPrice> productPrices = new HashSet<>();
 
 

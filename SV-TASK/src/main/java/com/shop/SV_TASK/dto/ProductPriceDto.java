@@ -1,5 +1,7 @@
 package com.shop.SV_TASK.dto;
 
+import com.shop.SV_TASK.controller.ProductController;
+import com.shop.SV_TASK.controller.SupplierController;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -17,11 +19,9 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductPriceDto {
     Long id;
-    @NotNull
-    //(groups = ProductController.class)
+    @NotNull(groups = ProductController.class)
     Long productId;
-    @NotNull
-    //(groups = SupplierController.class)
+    @NotNull(groups = SupplierController.class)
     Long supplierId;
     @Positive(message = "Value must be Long and positive")
     @NotNull

@@ -6,7 +6,9 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -25,6 +27,6 @@ public class Supplier {
     @Column(name = "name", nullable = false)
     String name;
 
-    @OneToMany
-    List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Set<ProductPrice> productPrices = new HashSet<>();
 }

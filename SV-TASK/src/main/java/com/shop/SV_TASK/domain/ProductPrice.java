@@ -22,18 +22,18 @@ public class ProductPrice {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "price", nullable = false)
+    @Column(name = "price_id", nullable = false)
     float price;
     @Column(name = "period_from", nullable = false)
     LocalDate period_from;
     @Column(name = "period_to", nullable = false)
     LocalDate period_to;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     Product product;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     Supplier supplier;
-    @OneToMany
+    @OneToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Supply> supplies = new ArrayList<>();
 }
