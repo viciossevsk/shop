@@ -29,12 +29,12 @@ public class ProductPriceController {
     }
 
     @GetMapping("/{id}")
-    ProductPriceDto getProductById(@Valid @PathVariable("id") Long id) {
+    ProductPriceDto getProductPriceById(@PathVariable("id") Long id) {
         return  productPriceService.getProductPriceById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProductById(@Valid @PathVariable("id") Long id){
+    public void deleteProductPriceById(@PathVariable("id") Long id){
         productPriceService.deleteProductPriceById(id);
     }
 

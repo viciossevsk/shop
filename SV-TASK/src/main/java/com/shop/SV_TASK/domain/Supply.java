@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Builder
 @Setter
 @Getter
 @AllArgsConstructor
@@ -20,14 +20,14 @@ public class Supply {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-
+    @Column(name = "num", nullable = false)
     int num;
-
-    LocalDateTime supply_dateTime;
-
+    @Column(name = "date_time", nullable = false)
+    LocalDateTime dateTime;
+    @Column(name = "weight", nullable = false)
     float weight;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "productprice_id", referencedColumnName = "id")
     ProductPrice productPrice;
 

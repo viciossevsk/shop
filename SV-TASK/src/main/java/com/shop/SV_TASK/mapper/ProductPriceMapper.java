@@ -20,13 +20,13 @@ public interface ProductPriceMapper {
             .period_to(productPrice.getPeriod_to())
             .productDto(new ProductDto(productPrice.getProduct().getId(),
                                        productPrice.getProduct().getName()))
-            .supplierDto(new SupplierDto(productPrice.getSupplier().getId(), productPrice.getSupplier().getName()))
+            .supplierDto(new SupplierDto(productPrice.getSupplier().getId(),
+                                         productPrice.getSupplier().getName()))
             .build();
     }
 
     default ProductPrice toProductPrice(ProductPriceShortDto productPriceShortDto, Product product, Supplier supplier) {
         return ProductPrice.builder()
-                .id(productPriceShortDto.getId())
                 .price(productPriceShortDto.getPrice())
                 .period_from(productPriceShortDto.getPeriod_from())
                 .period_to(productPriceShortDto.getPeriod_to())

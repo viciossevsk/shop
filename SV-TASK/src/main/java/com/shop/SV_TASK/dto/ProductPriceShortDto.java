@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductPriceShortDto {
-    Long id;
     @NotNull(groups = ProductController.class)
     Long productId;
     @NotNull(groups = SupplierController.class)

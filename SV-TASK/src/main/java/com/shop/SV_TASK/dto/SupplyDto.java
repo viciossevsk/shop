@@ -1,6 +1,5 @@
 package com.shop.SV_TASK.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -23,14 +22,14 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SupplyDto {
     Long id;
-    @Size(max = 5)
+    @Size(min = 1)
     @NotNull
     @Positive(message = "Value must be positive")
     int num;
     @DateTimeFormat(pattern = "YYYY-MM-DDTHH:mm:ss")
-    LocalDateTime supply_dateTime;
-    @Size(max = 3)
-    @NotBlank(message = "Supply weight must be specified")
+    LocalDateTime dateTime;
+    @Size(min = 1)
+    @NotNull
     @Positive(message = "Value must be positive")
     float weight;
     ProductPriceDto productPriceDto;

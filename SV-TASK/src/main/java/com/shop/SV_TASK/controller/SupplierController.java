@@ -30,12 +30,12 @@ public class SupplierController {
     }
 
     @GetMapping("/{id}")
-    SupplierDto getSupplierById(@Valid @PathVariable("id") Long id) {
+    SupplierDto getSupplierById(@PathVariable("id") Long id) {
         return  supplierService.getSupplierById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSupplierById(@Valid @PathVariable("id") Long id){
+    public void deleteSupplierById(@PathVariable("id") Long id){
         supplierService.deleteSupplierById(id);
     }
 }
