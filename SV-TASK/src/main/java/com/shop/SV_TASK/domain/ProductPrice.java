@@ -13,6 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Table(name = "PRODUCTPRICES", indexes = @Index(name = "product_price_index", columnList = "id, period_from, period_to", unique = true))
 @Entity

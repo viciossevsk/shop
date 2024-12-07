@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Table(name = "SUPPLIES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)

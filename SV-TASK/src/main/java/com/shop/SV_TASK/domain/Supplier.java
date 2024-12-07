@@ -3,11 +3,8 @@ package com.shop.SV_TASK.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.NotEmpty;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Setter
@@ -15,6 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "SUPPLIERS")
+@EqualsAndHashCode
+@ToString
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Supplier {
