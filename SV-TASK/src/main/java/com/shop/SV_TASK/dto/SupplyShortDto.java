@@ -9,10 +9,9 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
-
 /**
- * DTO для возврата пользователю, вместо ид productPrice возвращаем объект полностью
- */
+ * DTO для получения данных от пользователя, получаем ид productPrice
+ **/
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,8 +20,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class SupplyDto {
+public class SupplyShortDto {
     Long id;
+    @NotNull
+    private Long productPriceId;
     @Size(max = 5)
     @NotNull
     @Positive(message = "Value must be positive")
@@ -33,6 +34,4 @@ public class SupplyDto {
     @NotBlank(message = "Supply weight must be specified")
     @Positive(message = "Value must be positive")
     float weight;
-    ProductPriceDto productPriceDto;
-
 }
