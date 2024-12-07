@@ -5,6 +5,7 @@ import com.shop.SV_TASK.domain.Supply;
 import com.shop.SV_TASK.dto.SupplyDto;
 import com.shop.SV_TASK.dto.SupplyShortDto;
 import com.shop.SV_TASK.exception.EntityNotFoundException;
+import com.shop.SV_TASK.exception.ValidationException;
 import com.shop.SV_TASK.mapper.SupplyMapper;
 import com.shop.SV_TASK.repository.ProductPriceRepository;
 import com.shop.SV_TASK.repository.SupplyRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.*;
@@ -33,10 +35,10 @@ public class SupplyServiceImpl implements SupplyService{
     @Override
     @Transactional
     public SupplyDto createSupply(SupplyShortDto supplyShortDto) {
-        //  validate(productPriceDto);
         log.info(stringToGreenColor(supplyShortDto.toString()));
         ProductPrice productPrice =
                 productPriceRepository.findById(supplyShortDto.getProductPriceId()).orElseThrow(() -> new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyShortDto.getProductPriceId())));
+        validate(supplyShortDto);
         Supply supply = supplyMapper.toSupply(supplyShortDto, productPrice);
         log.info(stringToGreenColor(productPrice.toString()));
         return supplyMapper.toSupplyDto(supplyRepository.save(supply));
@@ -62,14 +64,14 @@ public class SupplyServiceImpl implements SupplyService{
         supplyRepository.deleteById(supplyId);
     }
 
-//    private void validate(SupplyDto supplyDto) {
-//        int num = supplyDto.getNum();
-//        Optional<Supply> supply = supplyRepository.findSupplyByNum(num);
-//        if (supply.isPresent()) {
-//            throw new ValidationException(String.format(MISTAKEN_VALID_SUPPLY_NUM, num));
-//        }
-//        if (!productPriceRepository.existsById(supplyDto.getProductPriceId())) {
-//            throw new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyDto.getProductPriceId()));
-//        }
-//    }
+    private void validate(SupplyShortDto supplyShortDto) {
+        int num = supplyShortDto.getNum();
+        Optional<Supply> supply = supplyRepository.findSupplyByNum(num);
+        if (supply.isPresent()) {
+            throw new ValidationException(String.format(MISTAKEN_VALID_SUPPLY_NUM, num));
+        }
+        if (!productPriceRepository.existsById(supplyShortDto.getProductPriceId())) {
+            throw new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyShortDto.getProductPriceId()));
+        }
+    }
 }
