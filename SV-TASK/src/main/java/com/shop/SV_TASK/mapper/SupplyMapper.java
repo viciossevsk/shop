@@ -5,6 +5,8 @@ import com.shop.SV_TASK.domain.Supply;
 import com.shop.SV_TASK.dto.*;
 import org.mapstruct.Mapper;
 
+import java.util.Set;
+
 @Mapper(componentModel = "spring", uses = {Supply.class})
 public interface SupplyMapper {
 
@@ -14,23 +16,21 @@ public interface SupplyMapper {
                 .num(supply.getNum())
                 .dateTime(supply.getDateTime())
                 .weight(supply.getWeight())
-                .productPriceDto(new ProductPriceDto(supply.getProductPrice().getId(),
-                                                     supply.getProductPrice().getPrice(),
-                                                     supply.getProductPrice().getPeriod_from(),
-                                                     supply.getProductPrice().getPeriod_to(),
-                                                     new ProductDto(supply.getProductPrice().getProduct().getId(),
-                                                                    supply.getProductPrice().getProduct().getName()),
-                                                     new SupplierDto(supply.getProductPrice().getSupplier().getId(),
-                                                                     supply.getProductPrice().getSupplier().getName())))
+                .productPriceDtoSet(productPricesToProductPriceDtoSet(supply.getProductPrices()))
                 .build();
     }
 
-    default Supply toSupply(SupplyShortDto supplyShortDto, ProductPrice productPrice) {
+    default Supply toSupply(SupplyShortDto supplyShortDto, Set<ProductPrice> productPriceSet) {
         return Supply.builder()
                 .num(supplyShortDto.getNum())
                 .dateTime(supplyShortDto.getDateTime())
                 .weight(supplyShortDto.getWeight())
-                .productPrice(productPrice)
+                .productPrices(productPriceSet)
                 .build();
     }
+
+    Set<ProductPriceDto> productPricesToProductPriceDtoSet(Set<ProductPrice> productPrices);
+
+    //Set<ProductPrice>
+
 }

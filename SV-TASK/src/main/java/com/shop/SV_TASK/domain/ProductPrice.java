@@ -5,8 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Setter
@@ -36,6 +36,10 @@ public class ProductPrice {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     Supplier supplier;
-    @OneToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Supply> supplies = new ArrayList<>();
+    @ManyToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Set<Supply> supplies = new HashSet<>();
+
+
+//    @OneToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    List<Supply> supplies = new ArrayList<>();
 }

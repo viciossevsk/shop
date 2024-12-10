@@ -7,6 +7,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Set;
+
 /**
  * DTO для получения данных от пользователя, получаем ид productPrice
  **/
@@ -19,8 +21,10 @@ import java.time.LocalDateTime;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SupplyShortDto {
+    //    @NotNull
+//    private Long productPriceId;
     @NotNull
-    private Long productPriceId;
+    private Set<Long> productPricesIds;
     @NotNull
     @Positive(message = "Value must be positive")
     int num;

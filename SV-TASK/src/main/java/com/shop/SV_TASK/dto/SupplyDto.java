@@ -8,6 +8,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * DTO для возврата пользователю, вместо ид productPrice возвращаем объект полностью
@@ -32,6 +34,6 @@ public class SupplyDto {
     @NotNull
     @Positive(message = "Value must be positive")
     float weight;
-    ProductPriceDto productPriceDto;
+    Set<ProductPriceDto> productPriceDtoSet = new HashSet<>();
 
 }

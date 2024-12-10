@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.*;
@@ -36,11 +37,10 @@ public class SupplyServiceImpl implements SupplyService{
     @Transactional
     public SupplyDto createSupply(SupplyShortDto supplyShortDto) {
         log.info(stringToGreenColor(supplyShortDto.toString()));
-        ProductPrice productPrice =
-                productPriceRepository.findById(supplyShortDto.getProductPriceId()).orElseThrow(() -> new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyShortDto.getProductPriceId())));
+        Set<ProductPrice> productPriceSet = productPriceRepository.findAllProductPriceByIds(supplyShortDto.getProductPricesIds());
         validate(supplyShortDto);
-        Supply supply = supplyMapper.toSupply(supplyShortDto, productPrice);
-        log.info(stringToGreenColor(productPrice.toString()));
+        Supply supply = supplyMapper.toSupply(supplyShortDto, productPriceSet);
+        log.info(stringToGreenColor(productPriceSet.toString()));
         return supplyMapper.toSupplyDto(supplyRepository.save(supply));
     }
 
