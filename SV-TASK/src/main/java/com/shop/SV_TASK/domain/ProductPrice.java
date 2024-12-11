@@ -36,7 +36,7 @@ public class ProductPrice {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     Supplier supplier;
-    @ManyToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "productPrices", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Set<Supply> supplies = new HashSet<>();
 
 
