@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Setter
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Table(name = "SUPPLIES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -25,11 +28,17 @@ public class Supply {
     int num;
     @Column(name = "date_time", nullable = false)
     LocalDateTime dateTime;
-    @Column(name = "weight", nullable = false)
-    float weight;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "productprice_id", referencedColumnName = "id")
-    ProductPrice productPrice;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "productPrice_supply",
+            joinColumns = @JoinColumn(name = "supply_id"),
+            inverseJoinColumns = @JoinColumn(name = "productPrice_id"))
+
+
+    Set<ProductPrice> productPrices = new HashSet<>();
+
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "productprice_id", referencedColumnName = "id")
+//    ProductPrice productPrice;
 
 }

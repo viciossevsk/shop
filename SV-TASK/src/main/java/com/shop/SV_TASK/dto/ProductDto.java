@@ -1,7 +1,6 @@
 package com.shop.SV_TASK.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.shop.SV_TASK.domain.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;

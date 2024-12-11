@@ -1,9 +1,13 @@
 package com.shop.SV_TASK.mapper;
 
+import com.shop.SV_TASK.domain.Product;
 import com.shop.SV_TASK.domain.ProductPrice;
+import com.shop.SV_TASK.domain.Supplier;
 import com.shop.SV_TASK.domain.Supply;
 import com.shop.SV_TASK.dto.*;
 import org.mapstruct.Mapper;
+
+import java.util.Set;
 
 @Mapper(componentModel = "spring", uses = {Supply.class})
 public interface SupplyMapper {
@@ -13,24 +17,35 @@ public interface SupplyMapper {
                 .id(supply.getId())
                 .num(supply.getNum())
                 .dateTime(supply.getDateTime())
-                .weight(supply.getWeight())
-                .productPriceDto(new ProductPriceDto(supply.getProductPrice().getId(),
-                                                     supply.getProductPrice().getPrice(),
-                                                     supply.getProductPrice().getPeriod_from(),
-                                                     supply.getProductPrice().getPeriod_to(),
-                                                     new ProductDto(supply.getProductPrice().getProduct().getId(),
-                                                                    supply.getProductPrice().getProduct().getName()),
-                                                     new SupplierDto(supply.getProductPrice().getSupplier().getId(),
-                                                                     supply.getProductPrice().getSupplier().getName())))
+                .productPriceDtoSet(productPricesToProductPriceDtoSet(supply.getProductPrices()))
                 .build();
     }
 
-    default Supply toSupply(SupplyShortDto supplyShortDto, ProductPrice productPrice) {
+    default Supply toSupply(SupplyShortDto supplyShortDto, Set<ProductPrice> productPriceSet) {
         return Supply.builder()
                 .num(supplyShortDto.getNum())
                 .dateTime(supplyShortDto.getDateTime())
-                .weight(supplyShortDto.getWeight())
-                .productPrice(productPrice)
+                .productPrices(productPriceSet)
                 .build();
     }
+
+    Set<ProductPriceDto> productPricesToProductPriceDtoSet(Set<ProductPrice> productPrices);
+
+    default ProductPriceDto productPriceToProductPriceDto(ProductPrice productPrice) {
+        return ProductPriceDto.builder()
+                .id(productPrice.getId())
+                .price(productPrice.getPrice())
+                .period_from(productPrice.getPeriod_from())
+                .period_to(productPrice.getPeriod_to())
+                .productDto(productToProductDto(productPrice.getProduct()))
+                .supplierDto(supplierToSupplierDto(productPrice.getSupplier()))
+                .build();
+    }
+
+    SupplierDto supplierToSupplierDto(Supplier supplier);
+
+    ProductDto productToProductDto(Product product);
+
+
+
 }

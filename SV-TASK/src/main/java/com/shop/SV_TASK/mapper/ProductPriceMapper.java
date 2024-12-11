@@ -18,10 +18,8 @@ public interface ProductPriceMapper {
             .price(productPrice.getPrice())
             .period_from(productPrice.getPeriod_from())
             .period_to(productPrice.getPeriod_to())
-            .productDto(new ProductDto(productPrice.getProduct().getId(),
-                                       productPrice.getProduct().getName()))
-            .supplierDto(new SupplierDto(productPrice.getSupplier().getId(),
-                                         productPrice.getSupplier().getName()))
+            .productDto(ProductToProductDto(productPrice.getProduct()))
+            .supplierDto(SupplierToSupplierDto(productPrice.getSupplier()))
             .build();
     }
 
@@ -32,6 +30,20 @@ public interface ProductPriceMapper {
                 .period_to(productPriceShortDto.getPeriod_to())
                 .product(product)
                 .supplier(supplier)
+                .build();
+    }
+
+    default ProductDto ProductToProductDto(Product product) {
+        return ProductDto.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .build();
+    }
+
+    default SupplierDto SupplierToSupplierDto(Supplier supplier) {
+        return SupplierDto.builder()
+                .id(supplier.getId())
+                .name(supplier.getName())
                 .build();
     }
 

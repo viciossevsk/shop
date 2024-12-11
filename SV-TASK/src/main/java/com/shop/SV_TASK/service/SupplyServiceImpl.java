@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.*;
@@ -36,11 +37,10 @@ public class SupplyServiceImpl implements SupplyService{
     @Transactional
     public SupplyDto createSupply(SupplyShortDto supplyShortDto) {
         log.info(stringToGreenColor(supplyShortDto.toString()));
-        ProductPrice productPrice =
-                productPriceRepository.findById(supplyShortDto.getProductPriceId()).orElseThrow(() -> new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyShortDto.getProductPriceId())));
         validate(supplyShortDto);
-        Supply supply = supplyMapper.toSupply(supplyShortDto, productPrice);
-        log.info(stringToGreenColor(productPrice.toString()));
+        Set<ProductPrice> productPriceSet = productPriceRepository.findAllProductPriceByIds(supplyShortDto.getProductPricesIds());
+        Supply supply = supplyMapper.toSupply(supplyShortDto, productPriceSet);
+        log.info(stringToGreenColor(supply.toString()));
         return supplyMapper.toSupplyDto(supplyRepository.save(supply));
     }
 
@@ -70,8 +70,11 @@ public class SupplyServiceImpl implements SupplyService{
         if (supply.isPresent()) {
             throw new ValidationException(String.format(MISTAKEN_VALID_SUPPLY_NUM, num));
         }
-        if (!productPriceRepository.existsById(supplyShortDto.getProductPriceId())) {
-            throw new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, supplyShortDto.getProductPriceId()));
+
+        for (Long id : supplyShortDto.getProductPricesIds()) {
+            if (!productPriceRepository.existsById(id)) {
+                throw new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_PRICE_ID, id));
+            }
         }
     }
 }

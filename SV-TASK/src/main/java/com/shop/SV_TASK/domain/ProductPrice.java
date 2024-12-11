@@ -5,8 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Setter
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Table(name = "PRODUCTPRICES", indexes = @Index(name = "product_price_index", columnList = "id, period_from, period_to", unique = true))
+@Table(name = "PRODUCTPRICES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductPrice {
@@ -36,6 +36,6 @@ public class ProductPrice {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     Supplier supplier;
-    @OneToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Supply> supplies = new ArrayList<>();
+    @ManyToMany(mappedBy = "productPrices", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    Set<Supply> supplies = new HashSet<>();
 }
