@@ -36,4 +36,9 @@ public class Supply {
 
 
     Set<ProductPrice> productPrices = new HashSet<>();
+
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "productprice_id", referencedColumnName = "id")
+//    ProductPrice productPrice;
+
 }
