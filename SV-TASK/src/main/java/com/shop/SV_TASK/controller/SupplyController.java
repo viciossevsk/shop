@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.stringToGreenColor;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -20,6 +22,7 @@ public class SupplyController {
 
     @PostMapping
     public SupplyDto createSupply(@Valid @RequestBody SupplyShortDto supplyShortDto) {
+        log.info(stringToGreenColor(supplyShortDto.toString()));
         return supplyService.createSupply(supplyShortDto);
     }
 

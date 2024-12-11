@@ -40,7 +40,7 @@ public class SupplyServiceImpl implements SupplyService{
         validate(supplyShortDto);
         Set<ProductPrice> productPriceSet = productPriceRepository.findAllProductPriceByIds(supplyShortDto.getProductPricesIds());
         Supply supply = supplyMapper.toSupply(supplyShortDto, productPriceSet);
-        log.info(stringToGreenColor(productPriceSet.toString()));
+        log.info(stringToGreenColor(supply.toString()));
         return supplyMapper.toSupplyDto(supplyRepository.save(supply));
     }
 

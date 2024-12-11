@@ -14,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Table(name = "SUPPLIES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)

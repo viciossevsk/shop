@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Table(name = "PRODUCTPRICES", indexes = @Index(name = "product_price_index", columnList = "id, period_from, period_to", unique = true))
+@Table(name = "PRODUCTPRICES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductPrice {
@@ -38,8 +38,4 @@ public class ProductPrice {
     Supplier supplier;
     @ManyToMany(mappedBy = "productPrices", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     Set<Supply> supplies = new HashSet<>();
-
-
-//    @OneToMany(mappedBy = "productPrice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    List<Supply> supplies = new ArrayList<>();
 }

@@ -1,6 +1,8 @@
 package com.shop.SV_TASK.mapper;
 
+import com.shop.SV_TASK.domain.Product;
 import com.shop.SV_TASK.domain.ProductPrice;
+import com.shop.SV_TASK.domain.Supplier;
 import com.shop.SV_TASK.domain.Supply;
 import com.shop.SV_TASK.dto.*;
 import org.mapstruct.Mapper;
@@ -31,6 +33,21 @@ public interface SupplyMapper {
 
     Set<ProductPriceDto> productPricesToProductPriceDtoSet(Set<ProductPrice> productPrices);
 
-    //Set<ProductPrice>
+    default ProductPriceDto productPriceToProductPriceDto(ProductPrice productPrice) {
+        return ProductPriceDto.builder()
+                .id(productPrice.getId())
+                .price(productPrice.getPrice())
+                .period_from(productPrice.getPeriod_from())
+                .period_to(productPrice.getPeriod_to())
+                .productDto(productToProductDto(productPrice.getProduct()))
+                .supplierDto(supplierToSupplierDto(productPrice.getSupplier()))
+                .build();
+    }
+
+    SupplierDto supplierToSupplierDto(Supplier supplier);
+
+    ProductDto productToProductDto(Product product);
+
+
 
 }

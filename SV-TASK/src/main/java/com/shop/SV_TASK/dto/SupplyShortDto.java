@@ -21,8 +21,6 @@ import java.util.Set;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SupplyShortDto {
-    //    @NotNull
-//    private Long productPriceId;
     @NotNull
     private Set<Long> productPricesIds;
     @NotNull
