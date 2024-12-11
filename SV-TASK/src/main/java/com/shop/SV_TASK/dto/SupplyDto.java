@@ -30,10 +30,6 @@ public class SupplyDto {
     int num;
     @DateTimeFormat(pattern = "YYYY-MM-DDTHH:mm:ss")
     LocalDateTime dateTime;
-    @Size(min = 1)
-    @NotNull
-    @Positive(message = "Value must be positive")
-    float weight;
     Set<ProductPriceDto> productPriceDtoSet = new HashSet<>();
 
 }

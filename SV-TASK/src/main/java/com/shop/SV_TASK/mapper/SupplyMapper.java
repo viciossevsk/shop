@@ -17,7 +17,6 @@ public interface SupplyMapper {
                 .id(supply.getId())
                 .num(supply.getNum())
                 .dateTime(supply.getDateTime())
-                .weight(supply.getWeight())
                 .productPriceDtoSet(productPricesToProductPriceDtoSet(supply.getProductPrices()))
                 .build();
     }
@@ -26,7 +25,6 @@ public interface SupplyMapper {
         return Supply.builder()
                 .num(supplyShortDto.getNum())
                 .dateTime(supplyShortDto.getDateTime())
-                .weight(supplyShortDto.getWeight())
                 .productPrices(productPriceSet)
                 .build();
     }

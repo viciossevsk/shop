@@ -28,8 +28,6 @@ public class Supply {
     int num;
     @Column(name = "date_time", nullable = false)
     LocalDateTime dateTime;
-    @Column(name = "weight", nullable = false)
-    float weight;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "productPrice_supply",

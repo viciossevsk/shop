@@ -28,7 +28,4 @@ public class SupplyShortDto {
     int num;
     @DateTimeFormat(pattern = "YYYY-MM-DDTHH:mm:ss")
     LocalDateTime dateTime;
-    @NotNull
-    @Positive(message = "Value must be positive")
-    float weight;
 }
