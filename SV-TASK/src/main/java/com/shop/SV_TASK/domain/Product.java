@@ -11,9 +11,9 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @ToString
-@EqualsAndHashCode
+@Entity
+//@EqualsAndHashCode
 @Table(name = "PRODUCTS")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
@@ -27,7 +27,7 @@ public class Product {
     String name;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
     Set<ProductPrice> productPrices = new HashSet<>();
-
 
 }

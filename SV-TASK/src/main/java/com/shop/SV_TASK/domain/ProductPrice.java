@@ -13,8 +13,8 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @ToString
+//@EqualsAndHashCode
 @Table(name = "PRODUCTPRICES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -36,6 +36,7 @@ public class ProductPrice {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
     Supplier supplier;
-    @ManyToMany(mappedBy = "productPrices", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "productPrices", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ToString.Exclude
     Set<Supply> supplies = new HashSet<>();
 }

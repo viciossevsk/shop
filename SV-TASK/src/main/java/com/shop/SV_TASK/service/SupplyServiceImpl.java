@@ -47,7 +47,8 @@ public class SupplyServiceImpl implements SupplyService{
     @Override
     @Transactional(readOnly = true)
     public List<SupplyDto> getAllSupplies() {
-        return supplyRepository.findAll().stream().map(supplyMapper::toSupplyDto).collect(Collectors.toList());
+      List<SupplyDto> supplyDtoList = supplyRepository.findAll().stream().map(supplyMapper::toSupplyDto).collect(Collectors.toList());
+        return supplyDtoList;
     }
 
 

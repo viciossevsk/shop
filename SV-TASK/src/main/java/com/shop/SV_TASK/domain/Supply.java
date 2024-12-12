@@ -13,8 +13,8 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @ToString
+//@EqualsAndHashCode
 @Table(name = "SUPPLIES")
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -29,16 +29,9 @@ public class Supply {
     @Column(name = "date_time", nullable = false)
     LocalDateTime dateTime;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "productPrice_supply",
             joinColumns = @JoinColumn(name = "supply_id"),
             inverseJoinColumns = @JoinColumn(name = "productPrice_id"))
-
-
     Set<ProductPrice> productPrices = new HashSet<>();
-
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "productprice_id", referencedColumnName = "id")
-//    ProductPrice productPrice;
-
 }
