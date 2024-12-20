@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.MISTAKEN_PRODUCT_ID;
@@ -27,6 +26,11 @@ public class ProductServiceImpl implements ProductService {
 
     ProductRepository productRepository;
     ProductMapper productMapper;
+
+    @Override
+    public void save(Product product) {
+        productRepository.save(product);
+    }
 
     @Override
     @Transactional
