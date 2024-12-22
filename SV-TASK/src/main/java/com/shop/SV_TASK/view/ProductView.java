@@ -8,19 +8,14 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinServletRequest;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.security.PermitAll;
-import jakarta.servlet.ServletException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /// # Страница создания продуктов
 
@@ -36,54 +31,30 @@ public class ProductView extends VerticalLayout {
 
    ProductService productService;
 
- TextField productName = new TextField("Наименование продукта");
-    Button addProduct = new Button(VaadinIcon.PLUS_CIRCLE_O.create());
- Grid<Product> productsGrid = new Grid<>(Product.class, true);
-
-//    @PostConstruct
-//    public void init(){
-//    this.setSizeFull();
-//    HorizontalLayout productWrapper = new HorizontalLayout();
-//    productWrapper.setWidthFull();
-//    productWrapper.add(productName, addProduct);
-//    productsGrid.setSizeFull();
-//
-//    this.add(productWrapper, productsGrid);
-//}
+   Button addProduct = new Button(VaadinIcon.PLUS_CIRCLE_O.create());
+   Button refreshGrid = new Button(VaadinIcon.REFRESH.create());
+   Grid<Product> productsGrid = new Grid<>(Product.class, false);
 
    @PostConstruct
    public void init() {
       this.setSizeFull();
-      HorizontalLayout plantWrapper = new HorizontalLayout();
-      plantWrapper.setWidthFull();
+      HorizontalLayout productWrapper = new HorizontalLayout();
+      productWrapper.setWidthFull();
       HorizontalLayout space = new HorizontalLayout();
       space.setWidthFull();
-      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//      Text username;
-//      if(authentication.getPrincipal() instanceof User u) {
-//         username = new Text(u.getUsername());
-//      } else {
-//         username = new Text(authentication.getPrincipal().toString());
-//      }
-      Button logoutButton = new Button(VaadinIcon.SIGN_OUT.create());
-      logoutButton.addClickListener(e -> {
-         try {
-            VaadinServletRequest.getCurrent().logout();
-         } catch (ServletException ex) {
-            throw new RuntimeException(ex);
-         }
-      });
       productsGrid.setSizeFull();
       productsGrid.addColumn(Product::getName).setHeader("Наименование");
-      HorizontalLayout gridTools = new HorizontalLayout(productsGrid, addProduct);
+      HorizontalLayout gridTools = new HorizontalLayout(productsGrid, addProduct, refreshGrid);
       gridTools.setWidthFull();
-      this.add(plantWrapper, gridTools, productsGrid);
+      this.add(productWrapper, gridTools, productsGrid);
       addProduct.addClickListener(event -> this.context.getBean(ProductAddView.class).open());
+      refreshGrid.addClickListener(event -> {
+         this.productsGrid.setItems(productService.getAll());
+      });
 
-   //   productsGrid.setItems(productService.getAllProducts());
-//      this.plants.addValueChangeListener(event -> {
-//         this.productsGrid.setItems(productionService.getAll(event.getValue()));
-//      });
+      productsGrid.setItems(productService.getAll());
+
+
    }
 
 

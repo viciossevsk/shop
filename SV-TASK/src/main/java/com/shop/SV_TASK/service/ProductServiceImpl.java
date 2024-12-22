@@ -6,6 +6,7 @@ import com.shop.SV_TASK.exception.EntityNotFoundException;
 import com.shop.SV_TASK.exception.ValidationException;
 import com.shop.SV_TASK.mapper.ProductMapper;
 import com.shop.SV_TASK.repository.ProductRepository;
+import com.vaadin.flow.component.notification.Notification;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void save(Product product) {
+        validate(product);
         productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return new ArrayList<>(productRepository.findAll());
     }
 
     @Override
@@ -72,4 +80,25 @@ public class ProductServiceImpl implements ProductService {
             throw new ValidationException("Product with these name already exists");
         }
     }
+
+    private void validate(Product product) {
+        log.info("validate");
+        if ((product.getName() == null) || (product.getName().isEmpty())) {
+            showErrorNotification("Product name invalid");
+        }
+
+        List<Product> products = productRepository.findAllByName(product.getName());
+
+        if (!products.isEmpty()) {
+            showErrorNotification("Product with these name already exists");
+        }
+    }
+
+    private void showErrorNotification (String message){
+        Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_CENTER);
+        notification.setThemeName("error");
+        throw new ValidationException(message);
+
+    }
+
 }

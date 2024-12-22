@@ -26,6 +26,7 @@ public class ProductAddView extends Dialog {
         this.productService = productService;
         this.add(name);
         this.getFooter().add(save, cancel);
+        name.focus();
 
         cancel.addClickListener(e -> close());
         save.addClickListener(e -> {
