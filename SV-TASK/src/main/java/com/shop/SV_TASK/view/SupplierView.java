@@ -16,8 +16,6 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 /// # Страница создания поставщиков
-/// **url = http://localhost:8080/shop/supplier**
-
 
 @PermitAll
 @Route(value = "Supplier", layout = MainLayout.class)

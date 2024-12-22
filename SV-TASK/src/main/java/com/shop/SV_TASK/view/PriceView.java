@@ -17,8 +17,6 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
 /// # Страница просмотра продуктов
-/// **url = http://localhost:8080/shop/price**
-
 
 @PermitAll
 @Route(value="", layout = MainLayout.class)
