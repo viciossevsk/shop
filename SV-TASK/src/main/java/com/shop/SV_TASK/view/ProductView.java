@@ -22,7 +22,7 @@ public class ProductView extends VerticalLayout {
 
  TextField productName = new TextField("Наименование продукта");
     Button addProduct = new Button(VaadinIcon.PLUS_CIRCLE_O.create());
- Grid<Product> productsGrid = new Grid<>(Product.class, true);  
+ Grid<Product> productsGrid = new Grid<>(Product.class, true);
 
     @PostConstruct
     public void init(){
