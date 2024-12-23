@@ -41,8 +41,7 @@ public class MainLayout extends AppLayout {
                 LumoUtility.Padding.Horizontal.MEDIUM);
 
         addToNavbar(header);
-
-
+        
     }
 
     private void createDrawer() {
