@@ -10,7 +10,11 @@ public interface SupplierService {
 
     void save(Supplier supplier);
 
+    void saveWeb(Supplier supplier);
+
     List<SupplierDto> getAllSuppliers();
+
+    List<Supplier> getAll();
 
     SupplierDto getSupplierById(Long supplierId);
 

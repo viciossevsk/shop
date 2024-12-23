@@ -31,7 +31,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void save(Product product) {
-        validate(product);
         productRepository.save(product);
     }
 
@@ -60,6 +59,12 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto getProductById(Long productId) {
         return productMapper.toProductDto(productRepository.findById(productId)
                                                   .orElseThrow(() -> new EntityNotFoundException(String.format(MISTAKEN_PRODUCT_ID, productId))));
+    }
+
+    @Override
+    public void saveWeb(Product product) {
+        validate(product);
+        productRepository.save(product);
     }
 
     @Override
@@ -98,7 +103,6 @@ public class ProductServiceImpl implements ProductService {
         Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_CENTER);
         notification.setThemeName("error");
         throw new ValidationException(message);
-
     }
 
 }

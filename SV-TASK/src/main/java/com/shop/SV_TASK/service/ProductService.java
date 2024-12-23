@@ -10,6 +10,8 @@ public interface ProductService {
 
     void save(Product product);
 
+    void saveWeb(Product product);
+
     List<ProductDto> getAllProducts();
 
     List<Product> getAll();
