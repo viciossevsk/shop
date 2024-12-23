@@ -34,6 +34,11 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
+    public void save(Supplier supplier) {
+        supplierRepository.save(supplier);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<SupplierDto> getAllSuppliers() {
         return supplierRepository.findAll().stream().map(supplierMapper::toSupplierDto).collect(Collectors.toList());
