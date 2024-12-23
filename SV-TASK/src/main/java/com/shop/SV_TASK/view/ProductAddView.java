@@ -32,7 +32,7 @@ public class ProductAddView extends Dialog {
         save.addClickListener(e -> {
             Product product = new Product();
             product.setName(name.getValue());
-            this.productService.save(product);
+            this.productService.saveWeb(product);
             this.close();
         });
     }

@@ -6,12 +6,15 @@ import com.shop.SV_TASK.exception.EntityNotFoundException;
 import com.shop.SV_TASK.exception.ValidationException;
 import com.shop.SV_TASK.mapper.SupplierMapper;
 import com.shop.SV_TASK.repository.SupplierRepository;
+import com.vaadin.flow.component.notification.Notification;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +22,18 @@ import static com.shop.SV_TASK.otherFunction.AddvansedFunctions.MISTAKEN_SUPPLIE
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SupplierServiceImpl implements SupplierService {
 
     SupplierRepository supplierRepository;
     SupplierMapper supplierMapper;
+
+    @Override
+    public void saveWeb(Supplier supplier) {
+        validate(supplier);
+        supplierRepository.save(supplier);
+    }
 
     @Override
     @Transactional
@@ -42,6 +52,12 @@ public class SupplierServiceImpl implements SupplierService {
     @Transactional(readOnly = true)
     public List<SupplierDto> getAllSuppliers() {
         return supplierRepository.findAll().stream().map(supplierMapper::toSupplierDto).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Supplier> getAll() {
+        return new ArrayList<>(supplierRepository.findAll());
     }
 
     @Override
@@ -68,5 +84,24 @@ public class SupplierServiceImpl implements SupplierService {
             throw new ValidationException("Supplier with these name already exists");
 
         }
+    }
+
+    private void validate(Supplier supplier) {
+        log.info("validate");
+        if ((supplier.getName() == null) || (supplier.getName().isEmpty())) {
+            showErrorNotification("Supplier name invalid");
+        }
+
+        List<Supplier> suppliers = supplierRepository.findAllByName(supplier.getName());
+
+        if (!suppliers.isEmpty()) {
+            showErrorNotification("Supplier with these name already exists");
+        }
+    }
+
+    private void showErrorNotification (String message){
+        Notification notification = Notification.show(message, 3000, Notification.Position.BOTTOM_CENTER);
+        notification.setThemeName("error");
+        throw new ValidationException(message);
     }
 }
